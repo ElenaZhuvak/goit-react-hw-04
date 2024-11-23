@@ -1,12 +1,6 @@
-import axios from "axios";
+import axios from "axios"
 
-axios.defaults.baseURL = 'https://hn.algolia.com/api/v1'
-export const fetchArticles = async (query, page) => {
-    const response = await axios.get(`/search`, 
-        {params: {
-            query,
-            page,
-            hitsPerPage: 100,
-        }});
-    return response.data
+export const fetchImageGallery = async () => {
+    const response = await axios.get('https://api.unsplash.com/photos/?client_id=7q_PyXeOVgXJsZXsArM5o60MRGV_bUkd0dtYPDPVY-Y');
+    return response.data;
 }
