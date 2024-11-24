@@ -1,15 +1,17 @@
 .gallery {
-    margin-right: auto;
-    margin-left: auto;
-    width: 1128px;
+    /* margin-bottom: 10px; */
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     list-style: none;
     padding: 0;
+    gap: 10px;
 }
 .galleryItem {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 10px);
+    max-width: calc(25% - 10px);
+    box-sizing: border-box;
 }
 
 .galleryImage {
@@ -17,4 +19,5 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
