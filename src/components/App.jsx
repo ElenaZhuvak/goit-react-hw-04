@@ -5,12 +5,15 @@ import { fetchImageGallery } from '../services/api';
 import Loader from './Loader/Loader'
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import SearchBar from './SearchBar/SearchBar';
+import { LoadMoreBtn } from './LoadMoreBtn/LoadMoreBtn';
 
 const App = () => {
     const [imageGallery, setImageGallery] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [query, setQuery] = useState('')
+    const [page, setPage] = useState(1)
+    const [btnLoadMore, setBtnLoadMore] = useState(false)
 
     useEffect(() => {
         if(!query) {
@@ -20,35 +23,41 @@ const App = () => {
             try {
                 setIsLoading(true)
                 setIsError(false)
-                const response = await fetchImageGallery(query)
+                const response = await fetchImageGallery(query, page)
+                setImageGallery(prevImages => 
+                    page === 1 ? response.results : [...prevImages, ...response.results]
+                );
+                setBtnLoadMore(response.total_pages > page)
                 setIsLoading(false)
-                setImageGallery(response.results)
             } catch (error) {
                 console.error(error)
                 setIsError(true)
-                setIsLoading(false)
             } finally {
                 setIsLoading(false)
             }
         }
-
         getData()
-    }, [query])
+    }, [query, page])
 
     const handleChangeQuery = (query) => {
         setQuery(query);
+        setPage(1)
+        setImageGallery([])
+    }
+
+    const handlePage = () => {
+        setPage(prev => prev + 1)
     }
 
   return (
     <div>
-        <SearchBar onChangeQuery={handleChangeQuery}/>
+        <SearchBar onSubmit={handleChangeQuery}/>
         {isLoading && <Loader />}
-        <ImageGallery images={imageGallery}/>
+        {imageGallery.length > 0 && <ImageGallery images={imageGallery}/>}
         {isError && <ErrorMessage />}
+        {btnLoadMore && <LoadMoreBtn onClick={handlePage}/>}
     </div>
   )
 }
 
 export default App
-
-// axios.get('https://api.unsplash.com/photos/?client_id=7q_PyXeOVgXJsZXsArM5o60MRGV_bUkd0dtYPDPVY-Y').then(res => setImageGallery(res.data))

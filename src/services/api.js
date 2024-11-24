@@ -4,7 +4,7 @@ axios.defaults.params = {
     client_id: '7q_PyXeOVgXJsZXsArM5o60MRGV_bUkd0dtYPDPVY-Y',
 }
 
-export const fetchImageGallery = async (query, page = 1) => {
+export const fetchImageGallery = async (query, page) => {
     const response = await axios.get(`/search/photos?query=${query}`, {
         params: {
           query: query,

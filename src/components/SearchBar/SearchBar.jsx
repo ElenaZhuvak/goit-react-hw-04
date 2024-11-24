@@ -1,13 +1,13 @@
 import { Field, Form, Formik } from "formik"
 import css from './SearchBar.module.css'
 
-const SearchBar = ({onChangeQuery}) => {
+const SearchBar = ({onSubmit}) => {
     const initialValues = {
         query: '',
     }
     const handleSubmit = (values, actions) => {
         console.log(values)
-        onChangeQuery(values.query)
+        onSubmit(values.query)
         actions.resetForm()
     }
 
