@@ -33,7 +33,9 @@ const App = () => {
                 setTotalPages(response.total_pages)
                 setPage(page)
                 setImageGallery(prevImages => [...prevImages, ...response.results]);
-                setBtnLoadMore(response.total_pages > page)
+                setBtnLoadMore((response.total_pages > page) && (toast('All images loaded!', {
+                    icon: '🏁',
+                  })))
                 setIsLoading(false)
             } catch (error) {
                 toast.error('Something went wrong')
