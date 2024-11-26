@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './components/App.jsx'
 import { Toaster } from 'react-hot-toast'
+import Modal from 'react-modal'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -10,3 +11,9 @@ createRoot(document.getElementById('root')).render(
 />
   </StrictMode>,
 )
+Modal.setAppElement('#root');
+
+
+
+
+

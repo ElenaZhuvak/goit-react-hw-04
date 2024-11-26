@@ -2,9 +2,9 @@ import css from './ImageCard.module.css'
 
 const ImageCard = ({image, onClick}) => {
   return (
-    <div onClick={() => onClick(image)}>
-      <img
-        className={css.galleryImage}
+      <div className={css.imageCard} onClick={() => onClick(image)}>
+          
+      <img className={css.image}
         src={image.urls.small}
         alt={image.description}
       />

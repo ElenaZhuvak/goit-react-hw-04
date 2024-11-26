@@ -12,7 +12,7 @@ import ImageModal from './ImageModal/ImageModal';
 const App = () => {
     const [imageGallery, setImageGallery] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [isError, setIsError] = useState(false)
+    const [isError, setIsError] = useState(null)
     const [query, setQuery] = useState('')
     const [page, setPage] = useState(0)
     const [btnLoadMore, setBtnLoadMore] = useState(false)
@@ -32,12 +32,20 @@ const App = () => {
                 const response = await fetchImageGallery(query, page)
                 setTotalPages(response.total_pages)
                 setPage(page)
-                setImageGallery(prevImages => [...prevImages, ...response.results]);
-                setBtnLoadMore((response.total_pages > page) && (toast('All images loaded!', {
-                    icon: '🏁',
-                  })))
+                setImageGallery(prevImages => [...prevImages, ...response.results])
+
+                if (response.total_pages === page) {
+                    toast('All images loaded!', {
+                        icon: '🏁',
+                    })
+                    setBtnLoadMore(false)
+                 } else {
+                     setBtnLoadMore(response.total_pages > page) 
+                 } 
                 setIsLoading(false)
             } catch (error) {
+                setIsError(error)
+                setQuery('')
                 toast.error('Something went wrong')
                 setIsError(true)
                 setBtnLoadMore(false)
@@ -52,6 +60,7 @@ const App = () => {
         setImageGallery([])
         setQuery(query);
         setPage(1)
+        setTotalPages(totalPages)
     }
 
     const handlePage = () => {
@@ -63,10 +72,8 @@ const App = () => {
         setIsOpenModal(true)
     }
 
-    const handleCloseModal = (event) => {
-        if (event.target === event.currentTarget) {
-            setIsOpenModal(false)
-        }
+    const handleCloseModal = () => {
+        setIsOpenModal(false)
         setSelectedImage(null)
     }
 
@@ -77,7 +84,7 @@ const App = () => {
         <ImageGallery images={imageGallery} onImageClick={handleImageClick}/>
         {isError && <ErrorMessage />}
         {btnLoadMore && <LoadMoreBtn onClick={handlePage}/>}
-        <ImageModal image={selectedImage} onOpen={isOpenModal} onClose={handleCloseModal}/>
+        <ImageModal image={selectedImage} isOpen={isOpenModal} onClose={handleCloseModal}/>
     </div>
   )
 }
