@@ -2,5 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin: 0 auto; */
+    margin: 0 auto;
+    background-color: rgb(79, 255, 252);
+    border-radius: 4px;
+    border: none;
+    padding: 8px 10px;
+    color: rgb(30, 50, 51);
+    margin-bottom: 20px;
+    margin-top: 10px;
 }

@@ -11,9 +11,7 @@ const ImageModal = ({image, isOpen, onClose}) => {
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
           padding: '0',
-          margin: '0',
-          border: 'none',
-          display: 'block'
+          border: 'none'
         },
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.8)'
