@@ -10,4 +10,9 @@
     color: rgb(30, 50, 51);
     margin-bottom: 20px;
     margin-top: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.btnLoadMore:hover {
+    background-color:aquamarine;
+    transform: scale(1.05);
 }
