@@ -1,13 +1,29 @@
 import Modal from 'react-modal'
 import css from './ImageModal.module.css'
 
-const ImageModal = ({image, isOpen, onClose, style}) => {
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '0',
+    border: 'none'
+  },
+  overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.8)'
+  }
+};
+
+const ImageModal = ({image, isOpen, onClose}) => {
    
   return (
     <Modal
         isOpen={isOpen}
         onRequestClose={onClose}
-        style={style}
+        style={customStyles}
     >
     {image && (
         <img className={css.modalImg} src={image.urls.regular}

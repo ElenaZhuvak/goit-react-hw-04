@@ -67,22 +67,6 @@ const App = () => {
         setPage(prev => prev + 1)
     }
 
-    const customStyles = {
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          padding: '0',
-          border: 'none'
-        },
-        overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.8)'
-        }
-      };
-
     const handleImageClick = (image) => {
         setSelectedImage(image)
         setIsOpenModal(true)
@@ -100,7 +84,7 @@ const App = () => {
         <ImageGallery images={imageGallery} onImageClick={handleImageClick}/>
         {isError && <ErrorMessage />}
         {btnLoadMore && <LoadMoreBtn onClick={handlePage}/>}
-        <ImageModal image={selectedImage} isOpen={isOpenModal} onClose={handleCloseModal} style={customStyles}/>
+        <ImageModal image={selectedImage} isOpen={isOpenModal} onClose={handleCloseModal}/>
     </div>
   )
 }
