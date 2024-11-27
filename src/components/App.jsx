@@ -16,7 +16,6 @@ const App = () => {
     const [query, setQuery] = useState('')
     const [page, setPage] = useState(0)
     const [btnLoadMore, setBtnLoadMore] = useState(false)
-    const [totalPages, setTotalPages] = useState(0)
     const [selectedImage, setSelectedImage] = useState(null)
     const [isOpenModal, setIsOpenModal] = useState(false)
 
@@ -30,8 +29,6 @@ const App = () => {
                 setIsLoading(true)
                 setIsError(false)
                 const response = await fetchImageGallery(query, page)
-                setTotalPages(response.total_pages)
-                setPage(page)
                 setImageGallery(prevImages => [...prevImages, ...response.results])
 
                 if (response.total_pages === page) {
@@ -44,8 +41,7 @@ const App = () => {
                  } 
                 setIsLoading(false)
             } catch (error) {
-                setIsError(error)
-                setQuery('')
+                console.error(error)
                 toast.error('Something went wrong')
                 setIsError(true)
                 setBtnLoadMore(false)
@@ -57,10 +53,12 @@ const App = () => {
     }, [query, page])
 
     const handleChangeQuery = (query) => {
+        if (query === '') {
+            setBtnLoadMore(false)
+        }
         setImageGallery([])
         setQuery(query);
         setPage(1)
-        setTotalPages(totalPages)
     }
 
     const handlePage = () => {
